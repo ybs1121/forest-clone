@@ -1,13 +1,14 @@
 package com.study.newforest2.biz.dto;
 
 import com.study.newforest2.biz.entity.Member;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.stereotype.Service;
 
 // 사용자 DTO
-@Getter
+@Data
 @Service
 @ToString
 public class MemberDto {

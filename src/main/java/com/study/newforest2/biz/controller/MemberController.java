@@ -4,6 +4,7 @@ import com.study.newforest2.biz.dto.MemberDto;
 import com.study.newforest2.biz.dto.ProjectDto;
 import com.study.newforest2.biz.service.MemberProjectMappService;
 import com.study.newforest2.biz.service.MemberService;
+import com.study.newforest2.core.common.StandardResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -20,28 +21,26 @@ public class MemberController {
     private final MemberProjectMappService memberProjectMappService;
 
     @PostMapping
-    public String addMember(@RequestBody MemberDto memberDto) {
-        memberService.addMember(memberDto);
-        return "success";  // todo : 포멧 만들어보기
+    public StandardResponse<Long> addMember(@RequestBody MemberDto memberDto) {
+        return StandardResponse.success(memberService.addMember(memberDto));
+//        return "success";  // todo : 포멧 만들어보기
     }
 
-    @GetMapping
-    public MemberDto getMember(Long id) {
-        return memberService.getMember(id);
+    @GetMapping("/{memberId}")
+    public StandardResponse<MemberDto> getMember(@PathVariable long memberId) {
+        return StandardResponse.success(memberService.getMember(memberId));
     }
 
 
     @PostMapping("/project")
-    public String addMemberInProject(@RequestBody MemberDto.Project memberDtoProject) {
-        memberProjectMappService.insertMemberProjectMapping(memberDtoProject.getMemberId(), memberDtoProject.getProjectId());
-        return "success";  // todo : 포멧 만들어보기
+    public StandardResponse<Long> addMemberInProject(@RequestBody MemberDto.Project memberDtoProject) {
+        return StandardResponse.success(memberProjectMappService.insertMemberProjectMapping(memberDtoProject.getMemberId(), memberDtoProject.getProjectId()));  // todo : 포멧 만들어보기
     }
 
     @GetMapping("/project")
-    public List<ProjectDto> getProject(long id) {
-        return memberService.getProjects(id);
+    public StandardResponse<List<ProjectDto>> getProject(long id) {
+        return StandardResponse.success(memberService.getProjects(id));
     }
-
 
 
 }
