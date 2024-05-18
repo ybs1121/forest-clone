@@ -8,6 +8,7 @@ import com.study.newforest2.biz.repository.MemberRepository;
 import com.study.newforest2.biz.repository.ProjectRepository;
 import com.study.newforest2.biz.repository.WorkLogRepository;
 import com.study.newforest2.biz.service.WorkLogService;
+import com.study.newforest2.core.common.BizException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,10 +30,28 @@ public class WorkLogServiceImpl implements WorkLogService {
     @Override
     public long addWorkLog(WorkLogDto workLogDto) {
         Member findMember = memberRepository.selectMemberOne(workLogDto.getMemberId());
+
+        if (findMember == null) {
+            throw new BizException(404, "존재하지 않는 회원입니다.");
+        }
+
         Project findProject = projectRepository.selectProjectOne(workLogDto.getProjectId());
+        if (findProject == null) {
+            throw new BizException(404, "존재하지 않는 프로젝트입니다.");
+        }
+
+        Member commentMember = null;
+        if (workLogDto.getCommentMemberId() != null) {
+            commentMember = memberRepository.selectMemberOne(workLogDto.getCommentMemberId());
+            if (commentMember == null) {
+                throw new BizException(404, "존재하지 않는 회원입니다.");
+            }
+        }
+
+
         return workLogRepository.insertWorkLog(WorkLog.toDao(workLogDto.getStdDt()
                 , workLogDto.getWorkStTm(), workLogDto.getWorkEdTm(), workLogDto.getWorkTxt()
-                , findMember, findProject));
+                , findMember, findProject, commentMember, workLogDto.getComment()));
     }
 
     @Override

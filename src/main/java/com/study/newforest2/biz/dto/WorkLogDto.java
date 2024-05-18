@@ -20,6 +20,10 @@ public class WorkLogDto {
 
     private long projectId;
 
+    private Long commentMemberId;
+
+    private String comment;
+
     private String projectName;
 
     public static WorkLogDto toDto(WorkLog workLog) {

@@ -23,7 +23,6 @@ public class MemberController {
     @PostMapping
     public StandardResponse<Long> addMember(@RequestBody MemberDto memberDto) {
         return StandardResponse.success(memberService.addMember(memberDto));
-//        return "success";  // todo : 포멧 만들어보기
     }
 
     @GetMapping("/{memberId}")

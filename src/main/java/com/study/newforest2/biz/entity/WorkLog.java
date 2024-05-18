@@ -27,8 +27,14 @@ public class WorkLog {
     @ManyToOne(fetch = FetchType.LAZY)
     private Project project;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member commentMember;
 
-    public static WorkLog toDao(String stdDt, String workStTm, String workEdTm, String workTxt, Member member, Project project) {
+    private String comment;
+
+
+    public static WorkLog toDao(String stdDt, String workStTm, String workEdTm
+            , String workTxt, Member member, Project project, Member commentMember, String comment) {
         WorkLog workLog = new WorkLog();
         workLog.stdDt = stdDt;
         workLog.workEdTm = workEdTm;
@@ -36,6 +42,8 @@ public class WorkLog {
         workLog.workTxt = workTxt;
         workLog.member = member;
         workLog.project = project;
+        workLog.commentMember = commentMember;
+        workLog.comment = comment;
 
         return workLog;
     }

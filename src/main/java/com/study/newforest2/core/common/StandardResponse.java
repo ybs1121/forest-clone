@@ -24,4 +24,13 @@ public class StandardResponse<T> {
 //        response.data = data;
         return response;
     }
+
+
+    public static <T> StandardResponse<T> fail(int code, String msg) {
+        StandardResponse<T> response = new StandardResponse<>();
+        response.code = code;
+        response.msg = msg;
+//        response.data = data;
+        return response;
+    }
 }
