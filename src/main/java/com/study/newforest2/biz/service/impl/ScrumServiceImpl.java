@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -82,6 +83,7 @@ public class ScrumServiceImpl implements ScrumService {
 
     @Override
     public List<ScrumDto> getScrumList(ScrumFind scrumFind) {
-        return List.of();
+        List<Scrum> scrums = scrumRepository.selectScrumByFind(scrumFind);
+        return scrums.stream().map(scrum -> ScrumDto.toDto(scrum)).collect(Collectors.toList());
     }
 }

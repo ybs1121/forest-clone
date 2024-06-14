@@ -8,6 +8,8 @@ import com.study.newforest2.core.common.StandardResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RequestMapping("/v3/api/scrum")
 @RestController
@@ -27,7 +29,7 @@ public class ScrumController {
     }
 
     @GetMapping("/find")
-    private StandardResponse<ScrumDto> findScrum(ScrumFind scrumFind){
-        return StandardResponse.success(null);
+    private StandardResponse<List<ScrumDto>> findScrum(ScrumFind scrumFind){
+        return StandardResponse.success(scrumService.getScrumList(scrumFind));
     }
 }
