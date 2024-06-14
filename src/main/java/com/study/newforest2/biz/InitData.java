@@ -33,6 +33,14 @@ public class InitData {
         projectDto.setStDt("20240101");
         projectDto.setEndDt("20241230");
         long projectId = projectService.addProject(projectDto);
+
+        ProjectDto projectDto2 = new ProjectDto();
+        projectDto2.setName("업무일지 프로젝트");
+        projectDto2.setStDt("20231101");
+        projectDto2.setEndDt("20241030");
+        long projectId2 = projectService.addProject(projectDto2);
+
+
         memberProjectMappService.insertMemberProjectMapping(memberId, projectId);
         WorkLogDto workLogDto = new WorkLogDto();
         workLogDto.setProjectId(projectId);
