@@ -1,5 +1,6 @@
 package com.study.newforest2.biz.repository;
 
+import com.study.newforest2.biz.dto.ScrumFind;
 import com.study.newforest2.biz.entity.Scrum;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -20,4 +21,8 @@ public class ScrumRepository {
     public Scrum selectScrum(long id) {
         return em.find(Scrum.class, id);
     }
+
+//    public Scrum selectScrumByFind(ScrumFind scrumFind) {
+//
+//    }
 }

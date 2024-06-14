@@ -1,6 +1,7 @@
 package com.study.newforest2.biz.controller;
 
 import com.study.newforest2.biz.dto.ScrumDto;
+import com.study.newforest2.biz.dto.ScrumFind;
 import com.study.newforest2.biz.service.ScrumService;
 import com.study.newforest2.core.common.ResultCode;
 import com.study.newforest2.core.common.StandardResponse;
@@ -23,5 +24,10 @@ public class ScrumController {
     @PatchMapping
     private StandardResponse<ResultCode> modScrum(@RequestBody ScrumDto scrumDto){
         return StandardResponse.success(scrumService.modScrum(scrumDto));
+    }
+
+    @GetMapping("/find")
+    private StandardResponse<ScrumDto> findScrum(ScrumFind scrumFind){
+        return StandardResponse.success(null);
     }
 }
