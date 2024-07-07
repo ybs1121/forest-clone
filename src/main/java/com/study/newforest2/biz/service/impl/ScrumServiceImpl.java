@@ -1,6 +1,7 @@
 package com.study.newforest2.biz.service.impl;
 
 import com.study.newforest2.biz.dto.ScrumDto;
+import com.study.newforest2.biz.dto.ScrumFind;
 import com.study.newforest2.biz.entity.Member;
 import com.study.newforest2.biz.entity.MemberProjectMapp;
 import com.study.newforest2.biz.entity.Project;
@@ -16,6 +17,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -75,5 +79,11 @@ public class ScrumServiceImpl implements ScrumService {
         scrum.setEndDt(scrumDto.getEndDt());
 
         return ResultCode.RESULT_OK;
+    }
+
+    @Override
+    public List<ScrumDto> getScrumList(ScrumFind scrumFind) {
+        List<Scrum> scrums = scrumRepository.selectScrumByFind(scrumFind);
+        return scrums.stream().map(scrum -> ScrumDto.toDto(scrum)).collect(Collectors.toList());
     }
 }
