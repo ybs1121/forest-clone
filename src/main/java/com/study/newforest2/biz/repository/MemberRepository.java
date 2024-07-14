@@ -1,7 +1,11 @@
 package com.study.newforest2.biz.repository;
 
-import com.study.newforest2.biz.entity.Member;
-import com.study.newforest2.biz.entity.Project;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.study.newforest2.biz.dto.MemberFind;
+import com.study.newforest2.biz.dto.ScrumFind;
+import com.study.newforest2.biz.entity.*;
+import com.study.newforest2.core.common.BizException;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -14,6 +18,8 @@ public class MemberRepository {
 
 //    @PersistenceContext // 엔티티 메니저를 주입해주는 어노테이션 -> 생성자 주입해줌
     private final EntityManager em;
+
+    private final JPAQueryFactory queryFactory;
 
     /**
      * 사용자 저장
@@ -39,6 +45,33 @@ public class MemberRepository {
         return em.createQuery("select p FROM MemberProjectMapp mpm JOIN mpm.project p WHERE mpm.member.id = :id",Project.class)
                 .setParameter("id", id)
                 .getResultList();
+    }
+
+    public List<Member> selectMemberByFind(MemberFind find) {
+        return queryFactory.selectFrom(QMember.member)
+                .join(QMember.member.projectList, QMemberProjectMapp.memberProjectMapp)
+                .join(QMemberProjectMapp.memberProjectMapp.project, QProject.project)
+                .where(findOption(find))
+                .fetch();
+
+    }
+
+    // 조건
+    private BooleanExpression findOption(MemberFind find) {
+        QMember member = QMember.member;
+        QProject project = QProject.project;
+        if (find == null) {
+            return null;
+        }
+
+        if ("1".equals(find.getFindOption())) {
+            return member.name.contains(find.getFindText());
+        } else if ("2".equals(find.getFindOption())) {
+            return project.name.contains(find.getFindText());
+        } else {
+            throw new BizException(400, "옵션값이 올바르지 않습니다.");
+        }
+
     }
 
 

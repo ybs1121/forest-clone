@@ -1,6 +1,7 @@
 package com.study.newforest2.biz.service.impl;
 
 import com.study.newforest2.biz.dto.MemberDto;
+import com.study.newforest2.biz.dto.MemberFind;
 import com.study.newforest2.biz.dto.ProjectDto;
 import com.study.newforest2.biz.entity.Member;
 import com.study.newforest2.biz.entity.Project;
@@ -56,5 +57,11 @@ public class MemberServiceImpl implements MemberService {
     public List<ProjectDto> getProjects(long id) {
         List<Project> projectList = memberRepository.findProject(id);
         return projectList.stream().map(p -> ProjectDto.toDto(p)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MemberDto> getMembers(MemberFind memberFind) {
+        List<Member> members = memberRepository.selectMemberByFind(memberFind);
+        return members.stream().map(m -> MemberDto.toDto(m)).collect(Collectors.toList());
     }
 }

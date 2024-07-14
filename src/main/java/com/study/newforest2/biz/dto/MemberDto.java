@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Data
 @Service
 @ToString
-@RedisHash(timeToLive = 60)
+@RedisHash(value = "member", timeToLive = 60)
 public class MemberDto {
 
     private Long id;

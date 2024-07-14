@@ -1,6 +1,7 @@
 package com.study.newforest2.biz.controller;
 
 import com.study.newforest2.biz.dto.MemberDto;
+import com.study.newforest2.biz.dto.MemberFind;
 import com.study.newforest2.biz.dto.ProjectDto;
 import com.study.newforest2.biz.service.MemberProjectMappService;
 import com.study.newforest2.biz.service.MemberService;
@@ -28,6 +29,11 @@ public class MemberController {
     @GetMapping("/{memberId}")
     public StandardResponse<MemberDto> getMember(@PathVariable long memberId) {
         return StandardResponse.success(memberService.getMember(memberId));
+    }
+
+    @GetMapping("/find")
+    public StandardResponse<List<MemberDto>> findMember(MemberFind memberFind) {
+        return StandardResponse.success(memberService.getMembers(memberFind));
     }
 
 
