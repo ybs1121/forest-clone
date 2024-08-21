@@ -5,12 +5,14 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.redis.core.RedisHash;
 import org.springframework.stereotype.Service;
 
 // 사용자 DTO
 @Data
 @Service
 @ToString
+@RedisHash(value = "member", timeToLive = 60)
 public class MemberDto {
 
     private Long id;
