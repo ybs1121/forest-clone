@@ -10,6 +10,8 @@ public interface MemberService {
 
     long addMember(MemberDto memberDto);
 
+    List<MemberDto> getMembers();
+
     MemberDto getMember(long id);
 
     List<ProjectDto> getProjects(long id);

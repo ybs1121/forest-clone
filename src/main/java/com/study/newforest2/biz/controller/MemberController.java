@@ -30,6 +30,11 @@ public class MemberController {
         return StandardResponse.success(memberService.getMember(memberId));
     }
 
+    @GetMapping
+    public StandardResponse<List<MemberDto>> getMembers() {
+        return StandardResponse.success(memberService.getMembers());
+    }
+
 
     @PostMapping("/project")
     public StandardResponse<Long> addMemberInProject(@RequestBody MemberDto.Project memberDtoProject) {

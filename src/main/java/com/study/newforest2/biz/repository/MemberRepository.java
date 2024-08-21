@@ -41,6 +41,10 @@ public class MemberRepository {
                 .getResultList();
     }
 
+    public List<Member> findMembers() {
+        return em.createQuery("select m from Member m", Member.class).getResultList();
+    }
+
 
 
 //    public List<Object[]> findProjectsAndMembersByMemberId(Long memberId) {
